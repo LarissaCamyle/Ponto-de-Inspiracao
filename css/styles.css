@@ -13,10 +13,10 @@
   --Cinza-medio: #8F8F8F;
   --Cinza: #444;
   --banner: #15163A;
-  --bg : #c3cdff;
+  --bg : #c3e4ff;
   --fonte-montserrat: "Montserrat Alternates", sans-serif;
   --fonte-urbanist:  "Urbanist", sans-serif;
-
+  --azul-claro: #a7d4ff;
 }
 
 body {
@@ -46,6 +46,11 @@ main {
 header {
   padding: 60px 240px 150px 360px;
   background: var(--banner);
+}
+
+button{
+  background-color: transparent;
+  border: none;
 }
 
 .conteudo-cabecalho {
@@ -188,13 +193,12 @@ button:hover {
 }
 
 #lista-pensamentos-container {
-  width: 100%;
+  width: 60%;
   max-width: 1200px;
   margin: 40px 0;
 }
 
 #lista-pensamentos-container h3 {
-  margin: 40px 0;
   text-transform: uppercase;
   font-family: var(--fonte-urbanist);
   font-weight: 800;
@@ -207,36 +211,38 @@ button:hover {
   flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 32px;
+  margin-top: 50px;
 }
 
 .li-pensamento {
   position: relative;
   padding: 16px;
-  background: var(--Branco, #FFF);
-  box-shadow: 8px 8px 0px 0px #154580;
-  flex: 1 1 calc(33.333% - 24px);
-  max-width: calc(33.333% - 24px);
-  min-width: 384px;
+  border-radius: 10px;
+  background: var(--azul-claro);
+  box-shadow: 8px 8px 0px 0px var(--banner);
+  flex: 1 1 calc(33% - 24px);
+  max-width: calc(33.33% - 24px);
+  min-width: 200px;
   min-height: 315px; 
   display: flex;
   flex-direction: column;
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
+  color: #0B1624;
 }
 
 .icone-aspas {
   position: absolute;
-  top: 32px;
-  left: 32px;
-  width: 64px;
-  height: 50px;
+  top: 20px;
+  left: 12px;
+  width: 50px;
+
 }
 
 .pensamento-conteudo, .pensamento-autoria {
   margin-left: 20px; 
-  color: var(--Cinza, #444);
-  font-family: "Roboto Mono";
+  font-family: var(--fonte-urbanist);
   font-style: normal;
   line-height: normal;
   margin-bottom: 16px; 
@@ -247,13 +253,13 @@ button:hover {
 
 .pensamento-conteudo {
   margin-top: 96px; 
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .pensamento-autoria {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 1.2rem;
+  font-weight: 700;
 }
 
 .icones {
