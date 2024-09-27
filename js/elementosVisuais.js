@@ -1,10 +1,12 @@
 import api from "./api.js"
+import verificarSeEstaVazio from "./main.js"
 
 const elementosVisuaisHtml = {
     limparFormulario(){
         const form = document.querySelector("form");
         form.reset();
     },
+
 
     async preencherFormularioParaEdicao(pensamentoId){
         const pensamento = await api.buscarPensamentosPorId(pensamentoId)
@@ -13,6 +15,7 @@ const elementosVisuaisHtml = {
         document.getElementById("pensamento-conteudo").value = pensamento.conteudo
         document.getElementById("pensamento-autoria").value = pensamento.autoria
     },
+
 
     async BuscaPensamentosECriaVisualmente () {
         try{
@@ -24,7 +27,9 @@ const elementosVisuaisHtml = {
         }
     },
 
+
     criarPensamentosNoHtml(pensamento) {
+        //criando os elementos
         const listaPensamentos = document.getElementById("lista-pensamentos")
         const li = document.createElement("li")
         li.setAttribute("data-id", pensamento.id)
@@ -50,18 +55,42 @@ const elementosVisuaisHtml = {
         iconEditar.src = "/img/editar.png"
         iconEditar.alt = "editar"
 
+
+        const btnExcluir = document.createElement("button")
+        btnExcluir.classList.add("botao-excluir")
+        btnExcluir.onclick = async () => {
+            try {
+                await api.excluirPensamentos(pensamento.id)
+                elementosVisuaisHtml.BuscaPensamentosECriaVisualmente()
+            } 
+            catch (error) {
+                alert("Erro ao excluir pensamnto")
+            }
+        }
+
+        const iconeExcluir = document.createElement("img")
+        iconeExcluir.src = "/img/lixeira.png"
+        iconeExcluir.alt = "Excluir"
+        btnExcluir.appendChild(iconeExcluir)
+
+        //adicionando ao html
         const divBtns = document.createElement("div");
         divBtns.classList.add("icones")
         
-
         divBtns.appendChild(btnEditar)
+        divBtns.appendChild(btnExcluir)
         btnEditar.appendChild(iconEditar);
         li.appendChild(iconeAspas)
         li.appendChild(pensamentoConteudo)
         li.appendChild(pensamentoAutoria)
         li.appendChild(divBtns)
         listaPensamentos.appendChild(li)
-    }
+
+        verificarSeEstaVazio()
+    },
+
+
+
 }
 
 export default elementosVisuaisHtml;

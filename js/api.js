@@ -1,8 +1,10 @@
+const URL = "http://localhost:3000"
+
 const api = {
     //lista todos os pensamentos
     async buscarPensamentos (){
         try{
-            const resposta = await fetch('http://localhost:3000/pensamentos')
+            const resposta = await fetch(`${URL}/pensamentos`)
             return await resposta.json()
         }
         catch{
@@ -15,7 +17,7 @@ const api = {
                         // um obj de pensamento
     async adicionarPensamentosNaApi(pensamento){
         try{
-            const resposta = await fetch('http://localhost:3000/pensamentos', {
+            const resposta = await fetch(`${URL}/pensamentos`, {
                 //METODO PARA INSERIR DADOS NA API
                 method: "POST", 
                 headers: {
@@ -35,7 +37,7 @@ const api = {
 
     async buscarPensamentosPorId (id) {
         try{
-            const resposta = await fetch(`http://localhost:3000/pensamentos/${id}`)
+            const resposta = await fetch(`${URL}/pensamentos/${id}`)
 
             return await resposta.json()
         }
@@ -49,7 +51,7 @@ const api = {
 
     async editarPensamentos(pensamento){
         try{
-            const resposta = await fetch(`http://localhost:3000/pensamentos/${pensamento.id}`, {
+            const resposta = await fetch(`${URL}/pensamentos/${pensamento.id}`, {
                 //METODO PARA EDITAR DADOS NA API
                 method: "PUT", 
                 headers: {
@@ -65,6 +67,20 @@ const api = {
             throw error
         }
     },
+
+    async excluirPensamentos(id){
+        try{
+            const resposta = await fetch(`${URL}/pensamentos/${id}`, {
+                //METODO PARA EDITAR DADOS NA API
+                method: "DELETE", 
+            })
+        }
+        catch{
+            console.log("Erro ao excluir pensamentos")
+            throw error
+        }
+    },
+
 }
 
 export default api;

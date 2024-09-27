@@ -2,8 +2,9 @@ import elementosVisuaisHtml from "./elementosVisuais.js"
 import api from "./api.js"
 
 document.addEventListener("DOMContentLoaded", () => {
-    elementosVisuaisHtml.BuscaPensamentosECriaVisualmente()
+    verificarSeEstaVazio();
 
+    elementosVisuaisHtml.BuscaPensamentosECriaVisualmente()
 
     const formularioPensamento = document.getElementById("pensamento-form")
     formularioPensamento.addEventListener("submit", manipularFormulario);
@@ -21,7 +22,15 @@ async function manipularFormulario(evento) {
     const autoria = document.getElementById("pensamento-autoria").value
 
     try{
-        await api.adicionarPensamentosNaApi({conteudo, autoria})
+        //se ja tem um id edita
+        if(id){
+            await api.editarPensamentos({id, conteudo, autoria});
+        }
+        //se n tem cria
+        else{
+            await api.adicionarPensamentosNaApi({conteudo, autoria})
+        }
+
         elementosVisuaisHtml.BuscaPensamentosECriaVisualmente()
     }
     catch{
@@ -29,3 +38,14 @@ async function manipularFormulario(evento) {
     }
 }
 
+export default function verificarSeEstaVazio (){
+    const listaPensamentos = document.getElementById("lista-pensamentos")
+    const muralVazio = document.querySelector(".mural-vazio");
+
+    if(listaPensamentos.childElementCount === 0){
+        muralVazio.classList.remove('hidden');
+    }
+    else{
+        muralVazio.classList.add('hidden');
+    }
+}

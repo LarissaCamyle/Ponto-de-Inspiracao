@@ -287,3 +287,27 @@ span {
   background: #041832;
   margin: 96px 0 48px 0;
 }
+
+.mural-vazio{
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.mural-vazio h2{
+  margin-top: 3rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.mural-vazio img{
+  margin-left: auto;
+  margin-right: auto;
+  width: 10rem;
+}
+
+.hidden{
+  display: none;
+}

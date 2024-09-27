@@ -40,7 +40,7 @@
             <button 
               type="submit" 
               id="botao-salvar">
-              Adicionar
+              Salvar
             </button>
             <button 
               type="button" 
@@ -54,11 +54,17 @@
       <section id="lista-pensamentos-container">
         <h3>Meu Mural</h3>
         <ul id="lista-pensamentos"></ul>
+        <div class="mural-vazio hidden">
+          <h2>Nada por aqui ainda, que tal compartilhar alguma ideia?</h2>
+          <img src="img/nao-pergunte.png" alt="vazio">
+        </div>
+
       </section>
     </main>
     <footer>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script type="module" src="/js/api.js"></script>
     <script type="module" src="/js/main.js"></script>
     <script type="module" src="/js/elementosVisuais.js"></script>
