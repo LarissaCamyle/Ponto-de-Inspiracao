@@ -51,6 +51,7 @@ header {
 button{
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .conteudo-cabecalho {
@@ -143,6 +144,31 @@ h2, h3 {
   line-height: normal;
 }
 
+#barra-de-pesquisa{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  margin: 3rem;
+}
+
+#input{
+  font-family: var(--fonte-urbanist);
+  font-size: 1.3rem;
+  padding: 0.7rem;
+  width: 25rem;
+  background: transparent;
+  color: var(--Azul-Dark);
+  border: 2px solid #003f92;
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+#barra-de-pesquisa img{
+  height: 2.4rem;
+}
+
 #pensamento-conteudo::placeholder,  #pensamento-autoria::placeholder{
   font-size: 16px;
   font-style: normal;
@@ -189,11 +215,11 @@ h2, h3 {
 }
 
 button:hover { 
-  transform: scale(1.05);
+  transform: scale(1.08);
 }
 
 #lista-pensamentos-container {
-  width: 60%;
+
   max-width: 1200px;
   margin: 40px 0;
 }
@@ -276,9 +302,20 @@ button:hover {
   margin-left: 8px;
 }
 
-.botao-editar img, .botao-excluir img {
+.botao-editar img{
   width: 20px;
   height: 20px;
+}
+
+.botao-excluir img{
+  width: 25px;
+  height: 25px;
+}
+
+.btn-favorito img {
+  width: 29px;
+  height: 29px;
+  margin: 0px 15px -2px 0px;
 }
 
 span {
@@ -294,6 +331,7 @@ span {
   margin-right: auto;
   flex-direction: column;
   gap: 4rem;
+  width: 80%;
 }
 
 .mural-vazio h2{

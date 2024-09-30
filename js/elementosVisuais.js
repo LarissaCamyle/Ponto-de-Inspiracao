@@ -1,5 +1,5 @@
 import api from "./api.js"
-import verificarSeEstaVazio from "./main.js"
+import verificarSeEstaVazio from "./verificarSeEstaVazio.js";
 
 const elementosVisuaisHtml = {
     limparFormulario(){
@@ -17,19 +17,35 @@ const elementosVisuaisHtml = {
     },
 
 
-    async BuscaPensamentosECriaVisualmente () {
+    async BuscaPensamentosECriaVisualmente(pensamentosFiltrados) {
+        //limpa a li antes de printar
+        const listaPensamentos = document.getElementById("lista-pensamentos")
+        listaPensamentos.innerHTML = ""
+                
         try{
-            const pensamentos = await api.buscarPensamentos();
-            pensamentos.forEach(elementosVisuaisHtml.criarPensamentosNoHtml);
+            let pensamentosFiltradosParaPrintar;
+
+            //se tiver pensamentos para filtrar, recebe os filtrados
+            if(pensamentosFiltrados){
+                pensamentosFiltradosParaPrintar = pensamentosFiltrados; 
+            }
+            //nao tem pensamentos filtrados, recebe todos os pensamentos
+            else{
+                pensamentosFiltradosParaPrintar = await api.buscarPensamentos();
+            }
+
+            pensamentosFiltradosParaPrintar.forEach(elementosVisuaisHtml.criarPensamentosNoHtml);
         }
-        catch{
+        catch(error){
             alert("Erro em renderizar pensamentos");
+            throw error
         }
     },
 
 
     criarPensamentosNoHtml(pensamento) {
         //criando os elementos
+        
         const listaPensamentos = document.getElementById("lista-pensamentos")
         const li = document.createElement("li")
         li.setAttribute("data-id", pensamento.id)
@@ -61,25 +77,47 @@ const elementosVisuaisHtml = {
         btnExcluir.onclick = async () => {
             try {
                 await api.excluirPensamentos(pensamento.id)
+                
                 elementosVisuaisHtml.BuscaPensamentosECriaVisualmente()
             } 
             catch (error) {
                 alert("Erro ao excluir pensamnto")
             }
         }
-
         const iconeExcluir = document.createElement("img")
-        iconeExcluir.src = "/img/lixeira.png"
+        iconeExcluir.src = "/img/lixo.png"
         iconeExcluir.alt = "Excluir"
-        btnExcluir.appendChild(iconeExcluir)
+
+
+        const btnFavorito = document.createElement("button")
+        btnFavorito.classList.add("btn-favorito")
+        const iconeFavorito = document.createElement("img")
+        iconeFavorito.src = pensamento.favorito ?
+        "/img/estrela-preenchida.png" :
+        "/img/estrela-vazia.png"
+        iconeFavorito.alt = "Ícone de favorito"
+        btnFavorito.onclick = async () => {
+            try {                                     //se esta como true fica como falso
+                                                    //se ja esta como favorito tem q retirar
+                await api.atualizarFavorito(pensamento.id, !pensamento.favorito)
+                elementosVisuaisHtml.BuscaPensamentosECriaVisualmente()
+            } 
+            catch (error) {
+                console.log("Erro no click do btn favorito")
+            }
+
+        }
+
+        const divBtns = document.createElement("div");
 
         //adicionando ao html
-        const divBtns = document.createElement("div");
         divBtns.classList.add("icones")
-        
+        divBtns.appendChild(btnFavorito)
         divBtns.appendChild(btnEditar)
         divBtns.appendChild(btnExcluir)
         btnEditar.appendChild(iconEditar);
+        btnFavorito.appendChild(iconeFavorito);
+        btnExcluir.appendChild(iconeExcluir)
         li.appendChild(iconeAspas)
         li.appendChild(pensamentoConteudo)
         li.appendChild(pensamentoAutoria)
