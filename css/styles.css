@@ -117,6 +117,7 @@ h2, h3 {
   width: 100%;
   max-width: 712px;
   margin-top: 40px;
+  height: auto;
 }
 
  #pensamento-form {
@@ -163,6 +164,22 @@ h2, h3 {
   border: 2px solid #003f92;
   border-radius: 50px;
   font-weight: 500;
+}
+
+#pensamento-data{
+  font-family: var(--fonte-urbanist);
+  font-size: 1.3rem;
+  padding: 0.7rem;
+  background: var(--bg);
+  color: var(--Azul-Dark);
+  border: 2px solid #003f92;
+  border-radius: 10px;
+  font-weight: 500;
+}
+
+.pensamento-data{
+  margin-left:auto;
+  padding: 0.5rem;
 }
 
 #barra-de-pesquisa img{
@@ -271,7 +288,7 @@ button:hover {
   font-family: var(--fonte-urbanist);
   font-style: normal;
   line-height: normal;
-  margin-bottom: 16px; 
+  margin-bottom: 10px; 
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;

@@ -14,6 +14,9 @@ const elementosVisuaisHtml = {
         document.getElementById("pensamento-id").value = pensamento.id
         document.getElementById("pensamento-conteudo").value = pensamento.conteudo
         document.getElementById("pensamento-autoria").value = pensamento.autoria
+        document.getElementById("pensamento-data").value = pensamento.data.
+        toISOString()
+        document.querySelector(".background-overlay h2").scrollIntoView()
     },
 
 
@@ -64,6 +67,18 @@ const elementosVisuaisHtml = {
         pensamentoAutoria.textContent = pensamento.autoria
         pensamentoAutoria.classList.add("pensamento-autoria")
 
+        const pensamentoData = document.createElement("div")
+        var options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'UTC'
+        }
+        const dataFormatada = pensamento.data.toLocaleDateString('pt-BR', options)
+        pensamentoData.textContent = dataFormatada
+        pensamentoData.classList.add("pensamento-data")
+        
         const btnEditar = document.createElement("button")
         pensamentoAutoria.classList.add("botao-editar")
         btnEditar.onclick = () => elementosVisuaisHtml.preencherFormularioParaEdicao(pensamento.id)
@@ -111,6 +126,7 @@ const elementosVisuaisHtml = {
         const divBtns = document.createElement("div");
 
         //adicionando ao html
+  
         divBtns.classList.add("icones")
         divBtns.appendChild(btnFavorito)
         divBtns.appendChild(btnEditar)
@@ -121,6 +137,7 @@ const elementosVisuaisHtml = {
         li.appendChild(iconeAspas)
         li.appendChild(pensamentoConteudo)
         li.appendChild(pensamentoAutoria)
+        li.appendChild(pensamentoData)
         li.appendChild(divBtns)
         listaPensamentos.appendChild(li)
 

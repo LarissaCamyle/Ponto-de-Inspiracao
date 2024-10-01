@@ -1,11 +1,20 @@
 const URL = "http://localhost:3000"
+import { converterData } from "./converterStringParaData.js"
 
 const api = {
     //lista todos os pensamentos
     async buscarPensamentos (){
         try{
             const resposta = await fetch(`${URL}/pensamentos`)
-            return await resposta.json()
+            const pensamentos = await resposta.json()
+
+            return pensamentos.map(pensamento => {
+                return {
+                    ...pensamento,
+                    //converte a data para printar
+                    data: new Date(pensamento.data)
+                }
+            })
         }
         catch (error){
             console.log("Erro ao buscar pensamentos")
@@ -17,6 +26,7 @@ const api = {
                         // um obj de pensamento
     async adicionarPensamentosNaApi(pensamento){
         try{
+            const dataNova = converterData(pensamento.data)
             const resposta = await fetch(`${URL}/pensamentos`, {
                 //METODO PARA INSERIR DADOS NA API
                 method: "POST", 
@@ -24,7 +34,12 @@ const api = {
                     "Content-Type": "application/json"
                 }, 
                 //converte um obj js para uma string json
-                body: JSON.stringify(pensamento)
+                body: JSON.stringify({
+                    //copia todas as propriedades do obj
+                    ...pensamento,
+                    //sobreescreve a data com a nova data
+                    dataNova
+                })
             })
             return await resposta.json()
         }
@@ -38,8 +53,13 @@ const api = {
     async buscarPensamentosPorId (id) {
         try{
             const resposta = await fetch(`${URL}/pensamentos/${id}`)
+            const pensamento = await resposta.json()
 
-            return await resposta.json()
+            return{
+                ...pensamento,
+                //converte a data para printar
+                data: new Date(pensamento.data)
+            }
         }
         catch (error){
             console.log("Erro em buscar pensamentos por id")
