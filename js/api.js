@@ -27,6 +27,7 @@ const api = {
     async adicionarPensamentosNaApi(pensamento){
         try{
             const dataNova = converterData(pensamento.data)
+
             const resposta = await fetch(`${URL}/pensamentos`, {
                 //METODO PARA INSERIR DADOS NA API
                 method: "POST", 
@@ -38,7 +39,7 @@ const api = {
                     //copia todas as propriedades do obj
                     ...pensamento,
                     //sobreescreve a data com a nova data
-                    dataNova
+                    data: dataNova.toISOString()
                 })
             })
             return await resposta.json()

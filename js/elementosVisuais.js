@@ -15,7 +15,8 @@ const elementosVisuaisHtml = {
         document.getElementById("pensamento-conteudo").value = pensamento.conteudo
         document.getElementById("pensamento-autoria").value = pensamento.autoria
         document.getElementById("pensamento-data").value = pensamento.data.
-        toISOString()
+        //"2024-09-29T00:00:00.000Z" quebra no T e pega a primeira parte
+        toISOString().split("T")[0]
         document.querySelector(".background-overlay h2").scrollIntoView()
     },
 
@@ -76,7 +77,9 @@ const elementosVisuaisHtml = {
             timeZone: 'UTC'
         }
         const dataFormatada = pensamento.data.toLocaleDateString('pt-BR', options)
-        pensamentoData.textContent = dataFormatada
+        //encontra o 1 caractere, transforma em maiusculo
+        const dataPrimeiraLetraMaiuscula = dataFormatada.replace(/^(\w)/, (match) => match.toUpperCase())
+        pensamentoData.textContent = dataPrimeiraLetraMaiuscula
         pensamentoData.classList.add("pensamento-data")
         
         const btnEditar = document.createElement("button")

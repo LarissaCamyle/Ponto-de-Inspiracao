@@ -22,7 +22,6 @@
 body {
   background: var(--bg);
   font-family: var(--fonte-urbanist);
-  overflow-x: hidden;
   display: flex;
   flex-direction: column;
 }
@@ -238,7 +237,7 @@ button:hover {
 #lista-pensamentos-container {
 
   max-width: 1200px;
-  margin: 40px 0;
+  margin: 40px 1rem;
 }
 
 #lista-pensamentos-container h3 {
